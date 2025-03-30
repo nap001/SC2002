@@ -42,6 +42,34 @@ public class Project {
         return false;
     }
 
+    public void delete() {
+    // Step 1: Remove the project from related HDBOfficers
+    for (HDBOfficer officer : hdbOfficers) {
+        officer.removeProject(this); // Assuming HDBOfficer has a removeProject method
+    }
+
+    // Step 2: Remove the project from related Applicants
+    for (Applicant applicant : applicants) {
+        applicant.removeProject(this); // Assuming Applicant has a removeProject method
+    }
+
+    // Step 3: Clear any enquiries related to the project
+    for (Enquiry enquiry : enquiries) {
+        enquiry.clearProject(); // Assuming Enquiry has a clearProject method
+    }
+
+    // Step 4: Clear the available units for the project
+    availableUnits.clear(); // Assuming availableUnits is a collection of units related to the project
+
+    // Step 5: Clear internal collections (like officers, applicants, and enquiries)
+    hdbOfficers.clear();
+    applicants.clear();
+    enquiries.clear();
+
+    // Log the deletion
+    System.out.println("Project " + projectID + " deleted successfully.");
+}
+
     // Getters and Setters
     public String getProjectID() { return projectID; }
     public void setProjectID(String projectID) { this.projectID = projectID; }
